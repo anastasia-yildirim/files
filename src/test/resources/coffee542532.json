@@ -1,0 +1,17 @@
+{
+    "id": 542532,
+    "brand": "Mountain Peak Coffee",
+    "description": "A smooth, rich roast with hints of chocolate and a bold, earthy finish.",
+    "origin_country": "Colombia",
+    "roast_level": "Medium-Dark",
+    "bean_type": "Arabica",
+    "weight": "250g",
+    "flavor_notes": [
+      "chocolate",
+      "caramel",
+      "earthy"
+    ],
+    "grind_type": "Whole Bean",
+    "price": 652.99,
+    "in_stock": true
+}
