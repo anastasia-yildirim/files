@@ -26,11 +26,11 @@ public class FilesParsingTests {
     private final ClassLoader classLoader = FilesParsingTests.class.getClassLoader();
 
     @Test
-    void zipFileParsingTest() throws Exception {
+    void pdfFromZipFileParsingTest() throws Exception {
         try (ZipFile zf = new ZipFile(new File("src/test/resources/archive.zip"));
              ZipInputStream zis = new ZipInputStream(
                      Objects.requireNonNull(classLoader.getResourceAsStream("archive.zip"))
-        )) {
+             )) {
             ZipEntry entry;
 
             while ((entry = zis.getNextEntry()) != null) {
@@ -42,7 +42,23 @@ public class FilesParsingTests {
                         Assertions.assertEquals("Sliced Invoices", pdf.author);
                     }
                 }
-                else if (fileName.endsWith(".csv") && !fileName.startsWith("_")) {
+            }
+        }
+    }
+
+    @Test
+    void csvFromZipFileParsingTest() throws Exception {
+
+        try (ZipFile zf = new ZipFile(new File("src/test/resources/archive.zip"));
+             ZipInputStream zis = new ZipInputStream(
+                     Objects.requireNonNull(classLoader.getResourceAsStream("archive.zip"))
+             )) {
+            ZipEntry entry;
+
+            while ((entry = zis.getNextEntry()) != null) {
+                String fileName = entry.getName();
+
+                if (fileName.endsWith(".csv") && !fileName.startsWith("_")) {
                     CSVParser parser = new CSVParserBuilder().withSeparator(';').build();
                     try (InputStream stream = zf.getInputStream(entry);
                          Reader reader = new InputStreamReader(stream);
@@ -75,9 +91,24 @@ public class FilesParsingTests {
                         );
                     }
                 }
-                else if (fileName.endsWith(".xlsx") && !fileName.startsWith("_")) {
+            }
+        }
+    }
+
+    @Test
+    void xlsxFromZipFileParsingTest() throws Exception {
+        try (ZipFile zf = new ZipFile(new File("src/test/resources/archive.zip"));
+             ZipInputStream zis = new ZipInputStream(
+                     Objects.requireNonNull(classLoader.getResourceAsStream("archive.zip"))
+             )) {
+            ZipEntry entry;
+
+            while ((entry = zis.getNextEntry()) != null) {
+                String fileName = entry.getName();
+
+                if (fileName.endsWith(".xlsx") && !fileName.startsWith("_")) {
                     try (InputStream is = zf.getInputStream(entry)) {
-                         XLS xls = new XLS(is);
+                        XLS xls = new XLS(is);
 
                         String actualValue = xls.excel.getSheetAt(0).getRow(1).getCell(1).getStringCellValue();
 
