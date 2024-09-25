@@ -1,4 +1,4 @@
-package tests;
+package files.tests;
 
 import com.codeborne.pdftest.PDF;
 import com.codeborne.xlstest.XLS;
@@ -7,7 +7,7 @@ import com.opencsv.CSVParser;
 import com.opencsv.CSVParserBuilder;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
-import model.Coffee;
+import files.model.Coffee;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
